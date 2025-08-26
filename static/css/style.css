@@ -1,0 +1,131 @@
+/* --- General Styles --- */
+body {
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.section-divider {
+    border-color: rgba(108, 117, 125, 0.5);
+    margin: 5rem 0;
+}
+
+/* --- Animated Text --- */
+.animated-text .cursor {
+    display: inline-block;
+    background-color: #0d6efd;
+    width: 3px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* --- Theme-independent styles --- */
+.animated-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.animated-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: scale(1.05);
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* --- Light Mode Styles --- */
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+body.light-mode .navbar {
+    background-color: #fff !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .navbar-brand,
+body.light-mode .nav-link {
+    color: #212529 !important;
+}
+
+body.light-mode .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+body.light-mode .card,
+body.light-mode .php-email-form {
+    background-color: #fff;
+    color: #212529;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+body.light-mode .form-control {
+    background-color: #f8f9fa;
+    color: #212529;
+    border: 1px solid #ced4da;
+}
+
+body.light-mode a {
+    color: #0d6efd;
+}
+
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+    background-color: #1a1a1a !important;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .navbar-brand,
+body.dark-mode .nav-link {
+    color: #f8f9fa !important;
+}
+
+body.dark-mode .btn-outline-secondary {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+}
+
+body.dark-mode .btn-outline-secondary:hover {
+    background-color: #e0e0e0;
+    color: #121212;
+}
+
+body.dark-mode .card,
+body.dark-mode .php-email-form {
+    background-color: #1e1e1e;
+    color: #f8f9fa;
+    border: 1px solid #333;
+}
+
+body.dark-mode .form-control {
+    background-color: #2c2c2c;
+    color: #f8f9fa;
+    border: 1px solid #495057;
+}
+
+body.dark-mode a {
+    color: #0d6efd;
+}
+
+body.dark-mode .footer-links a {
+    color: #e0e0e0 !important;
+}
