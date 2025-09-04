@@ -1,5 +1,5 @@
 """
-URL configuration for likhon project.
+URL configuration for likhoncombd project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from core.views import home, contact, signin, signup, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name="homepage"),
+    path('accounts/signin/', signin, name="signin"),
+    path('accounts/signup/', signup, name="signup"),
+    path('accounts/logout', logout_view, name="logout"),
+    path('contact/', contact, name="contact")
 ]

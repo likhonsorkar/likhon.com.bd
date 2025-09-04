@@ -1,5 +1,5 @@
 """
-ASGI config for likhon project.
+ASGI config for likhoncombd project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'likhon.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'likhoncombd.settings')
 
 application = get_asgi_application()

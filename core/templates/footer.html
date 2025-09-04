@@ -1,0 +1,33 @@
+{% load static %}
+<!-- Footer -->
+    <footer class="bg-pencil-lead text-white text-center py-8">
+        <div class="container mx-auto px-6">
+            <p class="mb-4">&copy; 2025 MD. Likhon Sorkar. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.facebook.com/www.likhon.com.bd/" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/officiallikhon" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/likhonsorkar/" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/likhonsorkar" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuBtn.classList.toggle('open'); // Optional: animate hamburger
+        });
+    </script>
+    <!-- Cart JS -->
+    <script src="{% static '/js/cart.js' %}"></script>
+</body>
+</html>
