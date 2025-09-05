@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import home, contact, signin, signup, logout_view
+from core.views import home, contact, signin, signup, logout_view, working, accessdenied
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('accounts/signin/', signin, name="signin"),
     path('accounts/signup/', signup, name="signup"),
     path('accounts/logout', logout_view, name="logout"),
-    path('contact/', contact, name="contact")
+    path('contact/', contact, name="contact"),
+    path('working/', working, name="working"),
+    path('no-access', accessdenied, name="noaccess")
 ]

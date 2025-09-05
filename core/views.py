@@ -82,6 +82,12 @@ def contact(request):
         return redirect("contact")
     return render(request, "contact.html")
 
+def working(request):
+    return render(request, "working.html")
+
+def accessdenied(request):
+    return render(request, "accessdenied.html")
+
 @login_required
 def logout_view(request):
     logout(request)
