@@ -35,7 +35,14 @@ SECRET_KEY = 'django-insecure-1_d$o-j-$&q1$kul3=ntdlqohrh6nmnr*ei^tow*6s99aj5r)b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    "likhon.com.bd",
+    "likhon-com-bd.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 
 
 # Application definition
