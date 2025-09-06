@@ -7,22 +7,23 @@
             </header>
 
             <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-up">
-                <form>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="mb-6">
-                        <label for="title" class="block text-lg font-medium text-gray-800 mb-2">Article Title</label>
-                        <input type="text" id="title" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-corallite" placeholder="Enter a catchy title">
+                        <label for="{{ form.title.id_for_label }}" class="block text-lg font-medium text-gray-800 mb-2">Article Title</label>
+                        {{ form.title }}
                     </div>
                     <div class="mb-6">
-                        <label for="excerpt" class="block text-lg font-medium text-gray-800 mb-2">Excerpt</label>
-                        <textarea id="excerpt" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-corallite" placeholder="A short summary of your article"></textarea>
+                        <label for="{{ form.content.id_for_label }}" class="block text-lg font-medium text-gray-800 mb-2">Article Content</label>
+                        {{ form.content }}
                     </div>
                     <div class="mb-6">
-                        <label class="block text-lg font-medium text-gray-800 mb-2">Featured Image</label>
-                        <input type="file" class="w-full p-3 border border-gray-300 rounded-lg">
+                        <label for="{{ form.featured_image.id_for_label }}" class="block text-lg font-medium text-gray-800 mb-2">Featured Image</label>
+                        {{ form.featured_image }}
                     </div>
                     <div class="mb-6">
-                        <label class="block text-lg font-medium text-gray-800 mb-2">Article Content</label>
-                        <div id="editor" class="bg-white" style="height: 300px;"></div>
+                        <label for="{{ form.tags.id_for_label }}" class="block text-lg font-medium text-gray-800 mb-2">Tags</label>
+                        {{ form.tags }}
                     </div>
                     <div class="mt-8 text-right">
                         <button type="submit" class="bg-purple-corallite hover:bg-purple-mountain-majesty text-white font-bold py-3 px-8 rounded-full transition duration-300">Publish Article</button>
@@ -30,20 +31,8 @@
                 </form>
             </div>
         </main>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
-        var quill = new Quill('#editor', {
-            theme: 'snow',
-            placeholder: 'Write your masterpiece...',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline'],
-                    ['blockquote', { 'list': 'bullet' }],
-                    ['link', 'image']
-                ]
-            }
-        });
     </script>
 {% endblock contents %}

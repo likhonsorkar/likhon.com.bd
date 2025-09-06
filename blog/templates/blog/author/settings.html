@@ -20,14 +20,13 @@
                     <h3 class="text-2xl font-bold text-purple-corallite mb-4">Balance & Earnings</h3>
                     <div class="bg-soft-blue/20 p-6 rounded-lg mb-6">
                         <p class="text-lg">Current Balance</p>
-                        <p class="text-4xl font-bold text-purple-corallite">৳15,000 BDT</p>
+                        <p class="text-4xl font-bold text-purple-corallite">৳0 BDT</p>
                     </div>
                     <h4 class="text-xl font-bold text-purple-corallite mb-4">Earning History</h4>
                     <table class="w-full text-left">
                         <thead><tr class="border-b-2"><th class="py-2">Date</th><th class="py-2">Amount</th><th class="py-2">Status</th></tr></thead>
                         <tbody>
-                            <tr class="border-b"><td class="py-3">Aug 1, 2025</td><td class="py-3">৳5,000</td><td><span class="text-green-500">Paid</span></td></tr>
-                            <tr class="border-b"><td class="py-3">Jul 1, 2025</td><td class="py-3">৳4,500</td><td><span class="text-green-500">Paid</span></td></tr>
+                            <tr class="border-b"><td colspan="3" class="py-3 text-center">No earnings history.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -35,27 +34,21 @@
                 <!-- Profile Tab -->
                 <div id="profile" class="tab-content">
                     <h3 class="text-2xl font-bold text-purple-corallite mb-6">Change Profile</h3>
-                    <form>
-                        <div class="flex items-center mb-8">
-                            <img src="../../static/img/likhon.png" alt="Profile Photo" class="w-24 h-24 rounded-full mr-6">
-                            <div>
-                                <label for="photo" class="block font-medium mb-2">Update Profile Photo</label>
-                                <input type="file" id="photo" class="w-full p-2 border rounded-lg">
-                            </div>
-                        </div>
+                    <form method="post">
+                        {% csrf_token %}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="fname" class="block font-medium mb-2">First Name</label>
-                                <input type="text" id="fname" value="MD. Likhon" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-corallite">
+                                <label for="{{ form.first_name.id_for_label }}" class="block font-medium mb-2">First Name</label>
+                                {{ form.first_name }}
                             </div>
                             <div>
-                                <label for="lname" class="block font-medium mb-2">Last Name</label>
-                                <input type="text" id="lname" value="Sorkar" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-corallite">
+                                <label for="{{ form.last_name.id_for_label }}" class="block font-medium mb-2">Last Name</label>
+                                {{ form.last_name }}
                             </div>
                         </div>
                         <div class="mt-6">
-                            <label for="email" class="block font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" value="likhon@example.com" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-corallite">
+                            <label for="{{ form.email.id_for_label }}" class="block font-medium mb-2">Email Address</label>
+                            {{ form.email }}
                         </div>
                         <div class="mt-8 text-right">
                             <button type="submit" class="bg-purple-corallite hover:bg-purple-mountain-majesty text-white font-bold py-3 px-6 rounded-full transition">Save Changes</button>

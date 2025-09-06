@@ -2,9 +2,9 @@
             <h1 class="text-3xl font-bold mb-8 text-center">Author Panel</h1>
             <nav class="flex flex-col space-y-4">
                 <a href="{% url 'author_dash' %}" class="sidebar-link active px-4 py-2 rounded-lg"><i class="fas fa-tachometer-alt mr-3"></i>Dashboard</a>
-                <a href="{% url 'newarticle' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-plus-circle mr-3"></i>New Article</a>
-                <a href="{% url 'myarticle' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-file-alt mr-3"></i>My Articles</a>
-                <a href="{% url 'authorsettings' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-cog mr-3"></i>My Account</a>
+                <a href="{% url 'author_createarticle' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-plus-circle mr-3"></i>New Article</a>
+                <a href="{% url 'author_myarticle' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-file-alt mr-3"></i>My Articles</a>
+                <a href="{% url 'author_settings' %}" class="sidebar-link px-4 py-2 rounded-lg"><i class="fas fa-cog mr-3"></i>My Account</a>
             </nav>
             <a href="{% url 'logout' %}" class="sidebar-link mt-auto px-4 py-2 rounded-lg text-center"><i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
         </aside>

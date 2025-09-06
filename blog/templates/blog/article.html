@@ -1,36 +1,59 @@
 {% include "header.html" %}
-    <main class="py-20">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-2">
-                    <article class="bg-white rounded-lg shadow-xl p-8">
-                        <header class="mb-6">
-                            <h1 class="text-4xl font-extrabold text-purple-corallite mb-2">Building a Modern E-Commerce Site</h1>
-                            <div class="text-gray-500 italic mb-4">Posted on August 30, 2025 by Likhon Sorkar</div>
-                            <div class="space-x-2">
-                                <a class="bg-purple-mountain-majesty text-white text-sm font-semibold px-3 py-1 rounded-full" href="#!">E-Commerce</a>
-                                <a class="bg-purple-mountain-majesty text-white text-sm font-semibold px-3 py-1 rounded-full" href="#!">Web Dev</a>
-                            </div>
-                        </header>
-                        <figure class="mb-6"><img class="w-full rounded-lg" src="https://placehold.co/800x400/5b21b6/ffffff" alt="..."></figure>
-                        <section class="text-lg text-gray-700">
-                            <p class="mb-6">Creating an e-commerce platform in today's market is a significant undertaking. Users expect a fast, seamless, and secure experience. In this article, we'll explore the key components of building a modern online store, from the technology stack to the user experience.</p>
-                            <h2 class="text-3xl font-bold text-purple-corallite mb-4 mt-8">The Technology Stack</h2>
-                            <p class="mb-6">Choosing the right tools is crucial. For the front-end, a library like <strong class="font-semibold">React</strong> or a framework like <strong class="font-semibold">Vue.js</strong> provides the reactivity needed for a dynamic shopping cart and product filtering. For styling, <strong class="font-semibold">Tailwind CSS</strong> offers a utility-first approach that speeds up development and ensures consistency.</p>
-                            <p class="mb-6">On the back-end, <strong class="font-semibold">Node.js</strong> with a framework like <strong class="font-semibold">Express</strong> is a popular choice for its speed and scalability. It handles everything from user authentication to order processing and database management. Speaking of databases, a NoSQL database like <strong class="font-semibold">MongoDB</strong> is flexible for storing product catalogs, while a SQL database like <strong class="font-semibold">PostgreSQL</strong> is excellent for managing relational data like orders and users.</p>
-                            <h2 class="text-3xl font-bold text-purple-corallite mb-4 mt-8">User Experience is Key</h2>
-                            <p class="mb-6">A great design is more than just aesthetics. It's about creating an intuitive journey for the customer. This includes:</p>
-                            <ul class="list-disc list-inside mb-6 space-y-2">
-                                <li>High-quality product images</li>
-                                <li>Clear and concise product descriptions</li>
-                                <li>An easy-to-navigate category structure</li>
-                                <li>A streamlined, multi-step checkout process</li>
-                            </ul>
-                        </section>
-                    </article>
+<main class="py-20">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2">
+                <article class="bg-white rounded-lg shadow-xl p-8">
+                    <header class="mb-6">
+                        <h1 class="text-4xl font-extrabold text-purple-corallite mb-2">{{ post.title }}</h1>
+                        <div class="text-gray-500 italic mb-4">Posted on {{ post.created_at|date:"F d, Y" }} by {{ post.author.username }}</div>
+                        <div class="space-x-2">
+                            {% for tag in post.tags.all %}
+                            <a class="bg-purple-mountain-majesty text-white text-sm font-semibold px-3 py-1 rounded-full" href="#!">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </header>
+                    {% if post.featured_image %}
+                    <figure class="mb-6"><img class="w-full rounded-lg" src="{{ post.featured_image.url }}" alt="{{ post.title }}"></figure>
+                    {% endif %}
+                    <section class="text-lg text-gray-700">
+                        {{ post.content|linebreaks }}
+                    </section>
+                </article>
+
+                <!-- Comments Section -->
+                <div class="bg-white rounded-lg shadow-xl p-8 mt-8">
+                    <h2 class="text-3xl font-bold text-purple-corallite mb-6">Comments</h2>
+                    {% if comments %}
+                        {% for comment in comments %}
+                        <div class="mb-4 border-b pb-4">
+                            <p class="text-gray-700">{{ comment.content }}</p>
+                            <div class="text-sm text-gray-500 mt-2">By {{ comment.author.username }} on {{ comment.created_at|date:"F d, Y" }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-gray-500">No comments yet.</p>
+                    {% endif %}
                 </div>
-                {% include "blog/sidebar.html" %}
+
+                <!-- Comment Form -->
+                <div class="bg-white rounded-lg shadow-xl p-8 mt-8">
+                    <h2 class="text-3xl font-bold text-purple-corallite mb-6">Leave a Comment</h2>
+                    {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            {{ comment_form.content }}
+                        </div>
+                        <button type="submit" class="bg-purple-mountain-majesty hover:bg-purple-corallite text-white font-bold py-2 px-6 rounded-full transition duration-300">Submit</button>
+                    </form>
+                    {% else %}
+                    <p class="text-gray-500">Please <a href="{% url 'login' %}" class="text-purple-corallite hover:underline">log in</a> to leave a comment.</p>
+                    {% endif %}
+                </div>
             </div>
+            {% include "blog/sidebar.html" %}
         </div>
-    </main>
+    </div>
+</main>
 {% include "footer.html" %}
