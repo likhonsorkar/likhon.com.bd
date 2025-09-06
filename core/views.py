@@ -9,6 +9,8 @@ from core.forms import RegistrationForm, LoginForm
 
 def home(request):
     return render(request, "home.html")
+
+
 def signin(request):
     if request.user.is_authenticated:
         return redirect('homepage')
