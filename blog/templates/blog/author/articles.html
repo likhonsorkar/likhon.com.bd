@@ -1,154 +1,49 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.">
-    <title>MD. Likhon Sorkar - Full Stack Developer</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'creamy-peach': '#f3a683',
-                        'rosy-highlight': '#f7d794',
-                        'soft-blue': '#778beb',
-                        'brewed-mustard': '#e77f67',
-                        'old-geranium': '#cf6a87',
-                        'sawtooth-aak': '#f19066',
-                        'summertime': '#f5cd79',
-                        'cornflower': '#546de5',
-                        'tigerlily': '#e15f41',
-                        'deep-rose': '#c44569',
-                        'purple-mountain-majesty': '#786fa6',
-                        'rogue-pink': '#f8a5c2',
-                        'squeaky': '#63cdda',
-                        'apple-valley': '#ea8685',
-                        'pencil-lead': '#596275',
-                        'purple-corallite': '#574b90',
-                        'flamingo-pink': '#f78fb3',
-                        'blue-curacao': '#3dc1d3',
-                        'porcelain-rose': '#e6a4b4',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-porcelain-rose text-pencil-lead">
-
-    <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a class="text-3xl font-bold text-purple-mountain-majesty" href="/index.html">Likhon.dev</a>
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="/index.html#about" class="text-gray-600 hover:text-purple-mountain-majesty transition">About</a>
-                <a href="/index.html#work" class="text-gray-600 hover:text-purple-mountain-majesty transition">Work</a>
-                <a href="/course/index.html" class="text-gray-600 hover:text-purple-mountain-majesty transition">Courses</a>
-                <a href="/shop/index.html" class="text-gray-600 hover:text-purple-mountain-majesty transition">Shop</a>
-                <a href="/blog/index.html" class="text-gray-600 hover:text-purple-mountain-majesty transition">Blog</a>
-                <a href="/shop/cart.html" class="text-gray-600 hover:text-purple-mountain-majesty transition relative">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </a>
-                <a href="/contact.html" class="bg-purple-mountain-majesty hover:bg-purple-corallite text-white font-bold py-2 px-4 rounded-full transition duration-300">Contact</a>
+{% extends "blog/author/author.html" %}
+{% block contents %}
+        <main class="flex-1 p-10">
+            <header class="mb-10" data-aos="fade-down">
+                <h2 class="text-4xl font-bold text-purple-corallite">My Articles</h2>
+                <p class="text-lg mt-2">Manage your published and draft articles.</p>
+            </header>
+            <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-up">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="py-3">Title</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3">Date</th>
+                            <th class="py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Article Row 1 -->
+                        <tr class="border-b">
+                            <td class="py-4 font-semibold">The Art of Modern Web Design</td>
+                            <td class="py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Published</span></td>
+                            <td class="py-4">Aug 29, 2025</td>
+                            <td class="py-4 text-center">
+                                <a href="#" class="text-soft-blue hover:underline mr-4"><i class="fas fa-edit"></i> Edit</a>
+                                <a href="#" class="text-tigerlily hover:underline"><i class="fas fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        <!-- Article Row 2 -->
+                        <tr class="border-b">
+                            <td class="py-4 font-semibold">10 Tailwind CSS Tricks</td>
+                            <td class="py-4"><span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Draft</span></td>
+                            <td class="py-4">Aug 28, 2025</td>
+                            <td class="py-4 text-center">
+                                <a href="#" class="text-soft-blue hover:underline mr-4"><i class="fas fa-edit"></i> Edit</a>
+                                <a href="#" class="text-tigerlily hover:underline"><i class="fas fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <button class="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-black hover:border-black">
-                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-            </button>
-        </nav>
-    </header>
+        </main>
+    </div>
 
-    <main class="py-20">
-        <div class="flex h-screen bg-gray-200">
-            <!-- Sidebar -->
-            <div class="w-64 bg-gray-800 text-white p-6">
-                <h2 class="text-2xl font-bold mb-8">Author Dashboard</h2>
-                <nav>
-                    <a href="create.html" class="block py-2 px-4 rounded hover:bg-gray-700">Create Article</a>
-                    <a href="articles.html" class="block py-2 px-4 rounded bg-blue-600">My Articles</a>
-                    <a href="settings.html" class="block py-2 px-4 rounded hover:bg-gray-700">Account Settings</a>
-                    <a href="../blog/index.html" class="block py-2 px-4 rounded hover:bg-gray-700 mt-4 border-t border-gray-700">View Blog</a>
-                </nav>
-            </div>
-    
-            <!-- Main Content -->
-            <main class="flex-1 p-10">
-                <h1 class="text-4xl font-bold mb-8">My Articles</h1>
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="py-3">Title</th>
-                                <th class="py-3">Status</th>
-                                <th class="py-3">Date</th>
-                                <th class="py-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Article Row 1 -->
-                            <tr class="border-b">
-                                <td class="py-4 font-semibold">The Art of Modern Web Design</td>
-                                <td class="py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Published</span></td>
-                                <td class="py-4">Aug 29, 2025</td>
-                                <td class="py-4">
-                                    <a href="#" class="text-blue-600 hover:underline mr-4">Edit</a>
-                                    <a href="#" class="text-red-600 hover:underline">Delete</a>
-                                </td>
-                            </tr>
-                            <!-- Article Row 2 -->
-                            <tr class="border-b">
-                                <td class="py-4 font-semibold">10 Tailwind CSS Tricks</td>
-                                <td class="py-4"><span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Draft</span></td>
-                                <td class="py-4">Aug 28, 2025</td>
-                                <td class="py-4">
-                                    <a href="#" class="text-blue-600 hover:underline mr-4">Edit</a>
-                                    <a href="#" class="text-red-600 hover:underline">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </main>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-pencil-lead text-white text-center py-8">
-        <div class="container mx-auto px-6">
-            <p class="mb-4">&copy; 2025 MD. Likhon Sorkar. All rights reserved.</p>
-            <div class="flex justify-center space-x-6">
-                <a href="#" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="text-white hover:text-squeaky transition text-2xl"><i class="fab fa-github"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
+        AOS.init({ duration: 800, once: true });
     </script>
-    <!-- Cart JS -->
-    <script src="/static/js/cart.js"></script>
-</body>
-</html>
+{% endblock contents %}
