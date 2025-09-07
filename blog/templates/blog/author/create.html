@@ -2,7 +2,7 @@
 {% block contents %}
         <main class="flex-1 p-10">
             <header class="mb-10" data-aos="fade-down">
-                <h2 class="text-4xl font-bold text-purple-corallite">Create New Article</h2>
+                <h2 class="text-4xl font-bold text-purple-corallite">{% if form.instance.pk %}Edit{% else %}Create New{% endif %} Article</h2>
                 <p class="text-lg mt-2">Fill out the form below to publish a new post.</p>
             </header>
 
@@ -31,8 +31,62 @@
                 </form>
             </div>
         </main>
+    
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/p2bqko9b1r9cn38lwov210l840ejrmyo6udztqt2g0et0g4p/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- AOS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
-        AOS.init({ duration: 800, once: true });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize TinyMCE
+            tinymce.init({
+                selector: '#id_content',
+                plugins: 'image code link lists',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image | code | numlist bullist',
+                automatic_uploads: true,
+                images_upload_url: '{% url "image_upload" %}',
+                file_picker_types: 'image',
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    input.onchange = function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
+                        reader.readAsDataURL(file);
+                    };
+                    input.click();
+                }
+            });
+
+            // Initialize Select2
+            $('#id_tags').select2({
+                width: '100%'
+            });
+
+            // Initialize AOS
+            AOS.init({ 
+                duration: 800, 
+                once: true 
+            });
+        });
     </script>
 {% endblock contents %}

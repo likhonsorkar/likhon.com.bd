@@ -1,25 +1,20 @@
 <!-- Side widgets-->
-                <div>
-                    <div class="bg-white rounded-lg shadow-xl p-6 mb-8">
-                        <h4 class="text-xl font-bold text-pencil-lead mb-4">Search</h4>
-                        <div class="flex">
-                            <input class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-mountain-majesty" type="text" placeholder="Enter search term...">
-                            <button class="bg-purple-mountain-majesty hover:bg-purple-corallite text-white font-bold py-2 px-4 rounded-r-lg" type="button">Go!</button>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-xl p-6">
-                        <h4 class="text-xl font-bold text-pencil-lead mb-4">Categories</h4>
-                        <div class="grid grid-cols-2 gap-4">
-                            <ul class="space-y-2">
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">Web Design</a></li>
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">HTML</a></li>
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">Freebies</a></li>
-                            </ul>
-                            <ul class="space-y-2">
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">JavaScript</a></li>
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">CSS</a></li>
-                                <li><a href="#!" class="text-gray-600 hover:text-purple-mountain-majesty">Tutorials</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+<div>
+    <div class="bg-white rounded-lg shadow-xl p-6 mb-8">
+        <h4 class="text-xl font-bold text-pencil-lead mb-4">Search</h4>
+        <div>
+            <form action="{% url 'blog' %}" method="get" class="flex">
+            <input name="q" class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-mountain-majesty" type="text" placeholder="Enter search term...">
+            <button class="bg-purple-mountain-majesty hover:bg-purple-corallite text-white font-bold py-2 px-4 rounded-r-lg" type="submit">Go!</button>
+            </form>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-xl p-6">
+        <h4 class="text-xl font-bold text-pencil-lead mb-4">Categories</h4>
+        <div class="space-y-2">
+            {% for tag in tags %}
+            <a href="{% url 'posts_by_tag' tag.name %}" class="block text-gray-600 hover:text-purple-mountain-majesty">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

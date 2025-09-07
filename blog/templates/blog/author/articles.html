@@ -22,8 +22,9 @@
                             <td class="py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Published</span></td>
                             <td class="py-4">{{ post.created_at|date:"M d, Y" }}</td>
                             <td class="py-4 text-center">
-                                <a href="#" class="text-soft-blue hover:underline mr-4"><i class="fas fa-edit"></i> Edit</a>
-                                <a href="#" class="text-tigerlily hover:underline"><i class="fas fa-trash"></i> Delete</a>
+                                <a href="{% url 'blog_detail' post.slug %}" target="_blank" class="text-green-500 hover:underline mr-4"><i class="fas fa-eye"></i> View</a>
+                                <a href="{% url 'author_edit_article' post.slug %}" class="text-soft-blue hover:underline mr-4"><i class="fas fa-edit"></i> Edit</a>
+                                <a href="{% url 'author_delete_article' post.slug %}" class="text-tigerlily hover:underline"><i class="fas fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         {% empty %}

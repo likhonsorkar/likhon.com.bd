@@ -2,9 +2,43 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Tag
 from blog.forms import CommentForm, PostForm, ProfileForm
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from PIL import Image
+import os
+from django.conf import settings
+import uuid
+
+
+@csrf_exempt
+@login_required
+def image_upload_view(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        
+        # Generate a unique filename
+        ext = file.name.split('.')[-1]
+        filename = f"{uuid.uuid4()}.webp"
+        
+        # Define the path to save the image
+        filepath = os.path.join(settings.MEDIA_ROOT, 'post_images', filename)
+        
+        # Open the image and convert to WebP
+        try:
+            with Image.open(file) as img:
+                img.save(filepath, 'WEBP')
+            
+            # Get the URL for the saved image
+            file_url = os.path.join(settings.MEDIA_URL, 'post_images', filename).replace('\\', '/')
+            
+            return JsonResponse({'location': file_url})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+            
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 def blog_list(request):
@@ -14,12 +48,16 @@ def blog_list(request):
     else:
         posts = Post.objects.all().order_by('-created_at')
     
-    return render(request, 'blog/index.html', {'posts': posts})
+    tags = Tag.objects.all()
+    return render(request, 'blog/index.html', {'posts': posts, 'tags': tags})
 
 
 def blog_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
+    post.views += 1
+    post.save()
     comments = post.comments.all().order_by('created_at')
+    tags = Tag.objects.all()
     
     if request.method == 'POST':
         if not request.user.is_authenticated:
@@ -37,8 +75,20 @@ def blog_detail(request, slug):
     return render(request, 'blog/article.html', {
         'post': post,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'tags': tags
     })
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = Post.objects.filter(tags=tag).order_by('-created_at')
+    tags = Tag.objects.all()
+    context = {
+        'tag': tag,
+        'posts': posts,
+        'tags': tags
+    }
+    return render(request, 'blog/category.html', context)
 
 
 @login_required
@@ -77,6 +127,26 @@ def author_createarticle(request):
     else:
         form = PostForm()
     return render(request, "blog/author/create.html", {'form': form})
+
+@login_required
+def author_edit_article(request, slug):
+    post = get_object_or_404(Post, slug=slug, author=request.user)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('author_myarticle')
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/author/create.html', {'form': form})
+
+@login_required
+def author_delete_article(request, slug):
+    post = get_object_or_404(Post, slug=slug, author=request.user)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('author_myarticle')
+    return render(request, 'blog/author/delete_confirm.html', {'post': post})
 
 @login_required
 def author_settings(request):
