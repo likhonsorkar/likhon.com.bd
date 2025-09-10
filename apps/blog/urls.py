@@ -1,5 +1,5 @@
 from django.urls import path
-from blog.views import (
+from apps.blog.views import (
     blog_list,
     blog_detail,
     posts_by_tag,

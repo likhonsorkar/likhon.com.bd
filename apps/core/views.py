@@ -4,11 +4,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from core.forms import RegistrationForm, LoginForm
+from apps.core.forms import RegistrationForm, LoginForm
+from apps.core.models import PortfolioItem
+from apps.blog.models import Post
 
 
 def home(request):
-    return render(request, "home.html")
+    portfolio_items = PortfolioItem.objects.all()
+    latest_post = Post.objects.order_by('-created_at').first()
+    return render(request, "home.html", {'portfolio_items': portfolio_items, 'latest_post': latest_post})
 
 
 def signin(request):

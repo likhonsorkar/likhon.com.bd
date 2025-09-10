@@ -32,7 +32,7 @@
                     
                     <!-- Regular Posts -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {% for post in posts|slice:"1:" %}
+                        {% for post in posts %}
                         <div class="bg-white rounded-lg shadow-xl overflow-hidden">
                             {% if post.featured_image %}
                             <img src="{{ post.featured_image.url }}" class="w-full h-48 object-cover" alt="{{ post.title }}">
@@ -47,6 +47,29 @@
                             </div>
                         </div>
                         {% endfor %}
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-8">
+                        <nav class="flex justify-center">
+                            <ul class="flex items-center">
+                                {% if posts.has_previous %}
+                                <li><a href="?page={{ posts.previous_page_number }}" class="px-4 py-2 bg-white border rounded-l-lg hover:bg-gray-100">Previous</a></li>
+                                {% endif %}
+                                
+                                {% for num in posts.paginator.page_range %}
+                                    {% if posts.number == num %}
+                                    <li><a href="?page={{ num }}" class="px-4 py-2 bg-purple-corallite text-white border-t border-b hover:bg-purple-mountain-majesty">{{ num }}</a></li>
+                                    {% else %}
+                                    <li><a href="?page={{ num }}" class="px-4 py-2 bg-white border-t border-b hover:bg-gray-100">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if posts.has_next %}
+                                <li><a href="?page={{ posts.next_page_number }}" class="px-4 py-2 bg-white border rounded-r-lg hover:bg-gray-100">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
                     </div>
                 {% else %}
                     <p class="text-center text-gray-500">No posts found.</p>

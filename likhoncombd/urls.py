@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.views import home, contact, signin, signup, logout_view, working, accessdenied, career
+from apps.core.views import home, contact, signin, signup, logout_view, working, accessdenied, career
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="homepage"),
-    path('blog/', include('blog.urls')),
+    path('blog/', include('apps.blog.urls')),
     path('accounts/signin/', signin, name="signin"),
     path('accounts/signup/', signup, name="signup"),
     path('accounts/logout', logout_view, name="logout"),
@@ -30,3 +32,6 @@ urlpatterns = [
     path('no-access', accessdenied, name="noaccess"),
     path('career/', career, name="career")
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

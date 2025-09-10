@@ -101,31 +101,40 @@
             </div>
         </section>
         <!-- My Work -->
-        <section id="work" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-purple-corallite text-center mb-12" data-aos="fade-up">My Work</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-500" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://placehold.co/600x400/a78bfa/ffffff" class="w-full" alt="Project 1">
-                    </div>
-                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-500" data-aos="fade-up" data-aos-delay="200">
-                        <img src="https://placehold.co/600x400/7c3aed/ffffff" class="w-full" alt="Project 2">
-                    </div>
-                    <div class="rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-500" data-aos="fade-up" data-aos-delay="300">
-                        <img src="https://placehold.co/600x400/5b21b6/ffffff" class="w-full" alt="Project 3">
-                    </div>
+<section id="work" class="py-20">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-purple-corallite text-center mb-12" data-aos="fade-up">My Work</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for item in portfolio_items %}
+            <div class="group rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-500 relative" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                <img src="{{ item.image.url }}" class="w-full h-64 object-cover" alt="{{ item.title }}">
+                <div class="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center items-center text-white p-6 text-center">
+                    <h3 class="text-2xl font-bold">{{ item.title }}</h3>
+                    <p class="mt-2 text-sm">{{ item.description }}</p>
+                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="mt-4 bg-purple-corallite hover:bg-purple-mountain-majesty text-white font-bold py-2 px-4 rounded-full transition duration-300">View Project</a>
                 </div>
             </div>
-        </section>
+            {% empty %}
+            <div class="col-span-full text-center">
+                <p class="text-lg text-pencil-lead">My work will be showcased here soon. Please check back later!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
         <!-- Latest Post -->
         <section id="latest-post" class="py-20 bg-soft-blue/20">
             <div class="container mx-auto px-6 text-center" data-aos="fade-up">
                 <h2 class="text-4xl font-bold text-purple-corallite mb-12">Latest From The Blog</h2>
                 <div class="bg-white rounded-lg shadow-xl max-w-3xl mx-auto p-8">
-                    <h3 class="text-3xl font-bold text-pencil-lead mb-4">Building a Modern E-Commerce Site</h3>
-                    <p class="text-lg text-gray-600 mb-6">A deep dive into the technologies and challenges behind creating a fast, responsive, and user-friendly online store.</p>
-                    <a href="blog/article.html" class="text-tigerlily font-bold text-lg hover:text-deep-rose transition">Read More &rarr;</a>
+                    {% if latest_post %}
+                        <h3 class="text-3xl font-bold text-pencil-lead mb-4">{{ latest_post.title }}</h3>
+                        <p class="text-lg text-gray-600 mb-6">{{ latest_post.content|truncatewords:30 }}</p>
+                        <a href="{% url 'blog_detail' latest_post.slug %}" class="text-tigerlily font-bold text-lg hover:text-deep-rose transition">Read More &rarr;</a>
+                    {% else %}
+                        <p class="text-lg text-gray-600">No blog posts yet.</p>
+                    {% endif %}
                 </div>
             </div>
         </section>
