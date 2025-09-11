@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">{% if form.instance.id %}Edit Product{% else %}Create Product{% endif %}</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{ form.as_p }}
+            </div>
+
+            <hr class="my-8">
+
+            <div>
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Product Images</h2>
+                {{ image_formset.management_form }}
+                <div id="image-form-list">
+                    {% for form in image_formset %}
+                        <div class="border p-4 rounded-lg mb-4 image-form">
+                            {{ form.as_p }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <hr class="my-8">
+
+            <div>
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Product Variations</h2>
+                {{ variation_formset.management_form }}
+                <div id="variation-form-list">
+                    {% for form in variation_formset %}
+                        <div class="border p-4 rounded-lg mb-4 variation-form">
+                            {{ form.as_p }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="button" id="add-variation-form" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">Add Variation</button>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
+                    Save Product
+                </button>
+                <a href="{% url 'seller_products' %}" class="ml-4 text-gray-600 hover:underline">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const addVariationBtn = document.getElementById('add-variation-form');
+    const variationFormList = document.getElementById('variation-form-list');
+    const totalFormsInput = document.querySelector('input[name="form-TOTAL_FORMS"]');
+
+    addVariationBtn.addEventListener('click', function() {
+        const formIndex = variationFormList.children.length;
+        const newFormHtml = `
+            <div class="border p-4 rounded-lg mb-4 variation-form">
+                <input type="hidden" name="form-${formIndex}-id" id="id_form-${formIndex}-id">
+                <p>
+                    <label for="id_form-${formIndex}-attributes">Attributes:</label>
+                    <input type="text" name="form-${formIndex}-attributes" id="id_form-${formIndex}-attributes" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+                </p>
+                <p>
+                    <label for="id_form-${formIndex}-sku">Sku:</label>
+                    <input type="text" name="form-${formIndex}-sku" id="id_form-${formIndex}-sku" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+                </p>
+                <p>
+                    <label for="id_form-${formIndex}-price">Price:</label>
+                    <input type="number" name="form-${formIndex}-price" step="0.01" id="id_form-${formIndex}-price" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+                </p>
+                <p>
+                    <label for="id_form-${formIndex}-stock_quantity">Stock quantity:</label>
+                    <input type="number" name="form-${formIndex}-stock_quantity" id="id_form-${formIndex}-stock_quantity" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500">
+                </p>
+                <p>
+                    <label for="id_form-${formIndex}-image">Image:</label>
+                    <input type="file" name="form-${formIndex}-image" id="id_form-${formIndex}-image" class="w-full text-gray-700">
+                </p>
+            </div>
+        `;
+        variationFormList.insertAdjacentHTML('beforeend', newFormHtml);
+        totalFormsInput.value = formIndex + 1;
+    });
+});
+</script>
+{% endblock contents %}

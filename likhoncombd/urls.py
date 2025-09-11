@@ -30,7 +30,8 @@ urlpatterns = [
     path('contact/', contact, name="contact"),
     path('working/', working, name="working"),
     path('no-access', accessdenied, name="noaccess"),
-    path('career/', career, name="career")
+    path('career/', career, name="career"),
+    path('shop/', include('apps.shop.urls')),
 ]
 
 if settings.DEBUG:

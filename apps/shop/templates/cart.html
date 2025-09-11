@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="w-2/5 text-left py-3 px-4 uppercase font-semibold text-sm">Product</th>
+                        <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Price</th>
+                        <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Quantity</th>
+                        <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Total</th>
+                        <th class="py-3 px-4 uppercase font-semibold text-sm"></th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for item in cart_items %}
+                    <tr>
+                        <td class="w-2/5 text-left py-3 px-4">
+                            <div class="flex items-center">
+                                {% if item.product.images.first %}
+                                    <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.name }}" class="h-16 w-16 object-cover rounded mr-4">
+                                {% endif %}
+                                <div>
+                                    <p class="font-semibold">{{ item.product.name }}</p>
+                                    {% if item.variation %}
+                                        <p class="text-sm text-gray-600">{{ item.variation.attributes }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="w-1/5 text-left py-3 px-4">${{ item.price }}</td>
+                        <td class="w-1/5 text-left py-3 px-4">{{ item.quantity }}</td>
+                        <td class="w-1/5 text-left py-3 px-4">${{ item.subtotal }}</td>
+                        <td class="text-left py-3 px-4">
+                            <a href="{% url 'remove_from_cart' item.key %}" class="text-red-500 hover:underline">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-right mt-4">
+            <p class="text-2xl font-bold">Total: ${{ total_price }}</p>
+            <button class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 mt-4">Checkout</button>
+        </div>
+    {% else %}
+        <p class="text-center py-8">Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock contents %}

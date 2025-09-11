@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Seller Dashboard</h1>
+    <p class="mb-8">Welcome to your dashboard. Here you can manage your products.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-2">Manage Products</h2>
+            <p class="mb-4">View, edit, and delete your products.</p>
+            <a href="{% url 'seller_products' %}" class="text-blue-500 hover:underline">View Products</a>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-2">Add New Product</h2>
+            <p class="mb-4">Create a new product to sell.</p>
+            <a href="{% url 'create_product' %}" class="text-blue-500 hover:underline">Add Product</a>
+        </div>
+    </div>
+</div>
+{% endblock contents %}

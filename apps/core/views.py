@@ -7,12 +7,18 @@ from django.contrib import messages
 from apps.core.forms import RegistrationForm, LoginForm
 from apps.core.models import PortfolioItem
 from apps.blog.models import Post
+from apps.shop.models import Product
 
 
 def home(request):
     portfolio_items = PortfolioItem.objects.all()
     latest_post = Post.objects.order_by('-created_at').first()
-    return render(request, "home.html", {'portfolio_items': portfolio_items, 'latest_post': latest_post})
+    products = Product.objects.filter(is_active=True, is_featured=True)[:6]
+    return render(request, "home.html", {
+        'portfolio_items': portfolio_items, 
+        'latest_post': latest_post,
+        'products': products
+    })
 
 
 def signin(request):
