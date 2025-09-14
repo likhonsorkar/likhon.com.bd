@@ -2,3 +2,5 @@ venv/
 __pycache__
 create_gemini_user.py
 create_tech_posts.py
+.env
+node_modules/

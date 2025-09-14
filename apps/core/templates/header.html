@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.">
-    <title>MD. Likhon Sorkar - Full Stack Developer</title>
+    <title>{% block title %}MD. Likhon Sorkar - Full Stack Developer{% endblock title %}</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <!-- AOS Animation Library -->
@@ -48,6 +48,9 @@
         .mobile-menu-open {
             overflow: hidden;
         }
+        #mobile-menu {
+            height: 100vh;
+        }
     </style>
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,13 +68,12 @@
                     <a href="{% url 'author_dash' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Dashboard</a>
                     <a href="{% url 'working' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Profile</a>
                     <a href="{% url 'blog' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Blog</a>
-                    <a href="{% url 'career' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Career</a>
+                    <a href="{% url 'tools:toolsdashboard' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Tools</a>
                     <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Logout</a>
                 {% else %}
-                    <a href="{% url 'noaccess' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Courses</a>
-                    <a href="{% url 'working' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Shop</a>
+                    <a href="{% url 'shop' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Shop</a>
                     <a href="{% url 'blog' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Blog</a>
-                    <a href="{% url 'career' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Career</a>
+                    <a href="{% url 'tools:toolsdashboard' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition">Tools</a>
                     <a href="{% url 'working' %}" class="text-gray-600 hover:text-purple-mountain-majesty transition relative">
                         <i class="fas fa-shopping-cart"></i>
                         <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
@@ -104,13 +106,12 @@
                     <a href="{% url 'author_dash' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Dashboard</a>
                     <a href="{% url 'working' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Profile</a>
                     <a href="{% url 'blog' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Blog</a>
-                    <a href="{% url 'career' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Career</a>
+                    <a href="{% url 'tools:toolsdashboard' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Tools</a>
                     <a href="{% url 'logout' %}" class="mt-8 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full transition duration-300">Logout</a>
                 {% else %}
-                    <a href="{% url 'noaccess' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Courses</a>
-                    <a href="{% url 'working' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Shop</a>
+                    <a href="{% url 'shop' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Shop</a>
                     <a href="{% url 'blog' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Blog</a>
-                    <a href="{% url 'career' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Career</a>
+                    <a href="{% url 'tools:toolsdashboard' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty">Tools</a>
                     <a href="{% url 'working' %}" class="block py-4 text-2xl text-gray-700 hover:text-purple-mountain-majesty relative">
                         <i class="fas fa-shopping-cart"></i>
                         <span id="cart-count-mobile" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>

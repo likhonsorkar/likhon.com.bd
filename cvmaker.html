@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% block contents %}
+<section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-purple-corallite text-center mb-4">Curriculum Vitae Maker</h1>
+            <p class="text-center text-gray-600 mb-10">Fill in your details to generate and download your CV.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- CV Form -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <form id="cvForm" class="space-y-8">
+                        <!-- Personal Details -->
+                        <div>
+                            <h2 class="text-2xl font-semibold text-purple-mountain-majesty mb-6 border-b-2 border-purple-mountain-majesty/20 pb-2">Personal Details</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium">Name:</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Father's Name:</label>
+                                    <input type="text" id="fatherName" name="fatherName" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Mother's Name:</label>
+                                    <input type="text" id="motherName" name="motherName" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Nationality:</label>
+                                    <input type="text" id="nationality" name="nationality" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Date of Birth:</label>
+                                    <input type="date" id="dob" name="dob" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Religion:</label>
+                                    <input type="text" id="religion" name="religion" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Marital Status:</label>
+                                    <select id="maritalStatus" name="maritalStatus" class="w-full px-4 py-2 border rounded-lg bg-white">
+                                        <option value="">Select...</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Gender:</label>
+                                    <select id="gender" name="gender" class="w-full px-4 py-2 border rounded-lg bg-white">
+                                        <option value="">Select...</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium">Mobile Number:</label>
+                                    <input type="text" id="mobileNumber" name="mobileNumber" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium">Email:</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium">Photo (Optional):</label>
+                                    <input type="file" id="photo" name="photo" accept="image/*" class="w-full">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-medium">Signature (Optional):</label>
+                                    <input type="file" id="signature" name="signature" accept="image/*" class="w-full">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">Address</h2>
+                            <textarea id="presentAddress" name="presentAddress" rows="3" placeholder="Present Address" class="w-full mb-3 px-4 py-2 border rounded-lg"></textarea>
+                            <textarea id="permanentAddress" name="permanentAddress" rows="3" placeholder="Permanent Address" class="w-full px-4 py-2 border rounded-lg"></textarea>
+                        </div>
+
+                        <!-- Education -->
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">Education</h2>
+                            <textarea id="education" name="education" rows="4" placeholder="Your educational background..." class="w-full px-4 py-2 border rounded-lg"></textarea>
+                        </div>
+
+                        <!-- Experience -->
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">Experience</h2>
+                            <textarea id="experience" name="experience" rows="4" placeholder="Your work experience..." class="w-full px-4 py-2 border rounded-lg"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- CV Preview -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <div id="cvPreview" class="prose max-w-none">
+                        <div class="text-center">
+                            <img id="preview-photo" class="mx-auto rounded-full h-32 w-32 object-cover" src="https://via.placeholder.com/150" alt="Photo">
+                            <h1 id="preview-name" class="text-3xl font-bold mt-4">Your Name</h1>
+                            <p id="preview-email">your.email@example.com</p>
+                            <p id="preview-mobileNumber">123-456-7890</p>
+                        </div>
+                        <hr class="my-6">
+                        <div>
+                            <h2 class="text-xl font-semibold">Personal Details</h2>
+                            <p><strong>Father's Name:</strong> <span id="preview-fatherName"></span></p>
+                            <p><strong>Mother's Name:</strong> <span id="preview-motherName"></span></p>
+                            <p><strong>Nationality:</strong> <span id="preview-nationality"></span></p>
+                            <p><strong>Date of Birth:</strong> <span id="preview-dob"></span></p>
+                            <p><strong>Religion:</strong> <span id="preview-religion"></span></p>
+                            <p><strong>Marital Status:</strong> <span id="preview-maritalStatus"></span></p>
+                            <p><strong>Gender:</strong> <span id="preview-gender"></span></p>
+                        </div>
+                        <hr class="my-6">
+                        <div>
+                            <h2 class="text-xl font-semibold">Address</h2>
+                            <p><strong>Present Address:</strong> <span id="preview-presentAddress"></span></p>
+                            <p><strong>Permanent Address:</strong> <span id="preview-permanentAddress"></span></p>
+                        </div>
+                        <hr class="my-6">
+                        <div>
+                            <h2 class="text-xl font-semibold">Education</h2>
+                            <p id="preview-education"></p>
+                        </div>
+                        <hr class="my-6">
+                        <div>
+                            <h2 class="text-xl font-semibold">Experience</h2>
+                            <p id="preview-experience"></p>
+                        </div>
+                        <hr class="my-6">
+                        <div class="text-right">
+                            <img id="preview-signature" class="h-16" src="https://via.placeholder.com/150x50" alt="Signature">
+                            <p class="mt-2">Signature</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-end space-x-4">
+                        <button id="printBtn" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition">Print</button>
+                        <button id="downloadBtn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-full transition">Download as PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #cvPreview, #cvPreview * {
+        visibility: visible;
+    }
+    #cvPreview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('cvForm');
+    
+    form.addEventListener('input', function(e) {
+        const { id, value } = e.target;
+        const previewElement = document.getElementById(`preview-${id}`);
+        if (previewElement) {
+            previewElement.innerText = value;
+        }
+    });
+
+    document.getElementById('photo').addEventListener('change', function(e) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            document.getElementById('preview-photo').src = event.target.result;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+
+    document.getElementById('signature').addEventListener('change', function(e) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            document.getElementById('preview-signature').src = event.target.result;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+
+    document.getElementById('printBtn').addEventListener('click', function() {
+        window.print();
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        const element = document.getElementById('cvPreview');
+        const opt = {
+            margin:       0.5,
+            filename:     'cv.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().from(element).set(opt).save();
+    });
+});
+</script>
+{% endblock contents %}

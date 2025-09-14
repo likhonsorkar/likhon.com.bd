@@ -32,6 +32,7 @@ urlpatterns = [
     path('no-access', accessdenied, name="noaccess"),
     path('career/', career, name="career"),
     path('shop/', include('apps.shop.urls')),
+    path('tools/', include('apps.tools.urls')),
 ]
 
 if settings.DEBUG:
