@@ -62,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "likhoncombd.urls"
@@ -114,19 +115,31 @@ USE_TZ = True
 # -------------------------------------------------------------------
 # STATIC & MEDIA FILES
 # -------------------------------------------------------------------
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# # Add this:
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+# MEDIA_URL = "/media/"
+# MEDIA_ROOT = BASE_DIR / "media"
+
+# Static files (CSS, JS, Images)
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
-# Add this:
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+# Tell Django where your dev static files live
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / "static",
 ]
 
+# Folder where collectstatic will put all files for production
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# Media (user uploads)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
