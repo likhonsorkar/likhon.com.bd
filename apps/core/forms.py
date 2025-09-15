@@ -19,7 +19,7 @@ class RegistrationForm(forms.ModelForm):
     password = forms.CharField(required=True, widget=forms.PasswordInput(
         attrs={'placeholder': 'Password', 'class': 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-mountain-majesty'}
     ))
-    confirm_password = forms.CharField(required=True, widget=forms.PasswordInput(
+    password2 = forms.CharField(required=True, widget=forms.PasswordInput(
         attrs={'placeholder': 'Confirm Password', 'class': 'w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-mountain-majesty'}
     ))
 
@@ -42,9 +42,10 @@ class RegistrationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
-        if password != confirm_password:
+        password2 = cleaned_data.get("password2")
+        if password and password2 and password != password2:
             raise ValidationError("Passwords do not match")
+        return cleaned_data
 
 
 # -----------------------------

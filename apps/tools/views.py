@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import base64
 
 def dashboard(request):
     return render(request, 'tools/dashboard.html')
 
 def cv_maker(request):
+    return redirect("https://old.likhon.com.bd/tools/cv-maker/")
     if request.method == 'POST':
         photo_base64 = None
         if request.FILES.get('photo'):

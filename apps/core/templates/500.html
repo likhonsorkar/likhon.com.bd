@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block contents %}
+        <!-- 500 Section -->
+        <section class="py-40 bg-soft-blue/20">
+            <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+                <h1 class="text-9xl font-extrabold text-purple-corallite leading-tight">500</h1>
+                <h2 class="text-4xl font-bold text-pencil-lead mt-4">Server Error</h2>
+                <p class="text-lg text-pencil-lead max-w-2xl mx-auto mt-6">Oops! Something went wrong on our end. We are working to fix it.</p>
+                <a href="{% url 'homepage' %}" class="mt-12 inline-block bg-tigerlily hover:bg-deep-rose text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg">Go Back to Home</a>
+            </div>
+        </section>
+{% endblock contents %}

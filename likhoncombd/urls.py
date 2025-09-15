@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.core.views import home, contact, signin, signup, logout_view, working, accessdenied, career
+from apps.core.views import home, contact, signin, signup, logout_view, working, accessdenied, career, activate
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/signin/', signin, name="signin"),
     path('accounts/signup/', signup, name="signup"),
     path('accounts/logout', logout_view, name="logout"),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
     path('contact/', contact, name="contact"),
     path('working/', working, name="working"),
     path('no-access', accessdenied, name="noaccess"),
@@ -35,5 +36,6 @@ urlpatterns = [
     path('tools/', include('apps.tools.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+handler404 = 'apps.core.views.custom_404'
+handler500 = 'apps.core.views.custom_500'
+handler403 = 'apps.core.views.custom_403'

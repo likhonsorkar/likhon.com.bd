@@ -37,7 +37,7 @@
                     </div>
                 </form> {% endcomment %}
 
-                <form method="POST" action="{% url 'signup' %}">
+                {% comment %} <form method="POST" action="{% url 'signup' %}">
                     {% csrf_token %}
                     <div class="mb-6">
                         <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
@@ -76,7 +76,25 @@
                     <div class="text-center mt-4">
                         <a href="{% url 'signin' %}" class="text-purple-mountain-majesty hover:underline">Already have an account? Login</a>
                     </div>
-                </form>
+                </form> {% endcomment %}
+                <form method="POST" action="{% url 'signup' %}" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+    {% csrf_token %}
+
+    <!-- Render all form fields as paragraphs -->
+    {{ form.as_p }}
+
+    <div class="text-center mt-4">
+        <button type="submit" class="w-full bg-purple-mountain-majesty hover:bg-purple-corallite text-white font-bold py-3 px-8 rounded-full transition duration-300">
+            Register
+        </button>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'signin' %}" class="text-purple-mountain-majesty hover:underline">
+            Already have an account? Login
+        </a>
+    </div>
+</form>
 
             </div>
         </div>
