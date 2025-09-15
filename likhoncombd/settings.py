@@ -30,12 +30,22 @@ ALLOWED_HOSTS = [
 # EMAIL SETTINGS
 # -------------------------------------------------------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = "mail.likhon.com.bd"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True 
+EMAIL_HOST_USER = "no_reply@likhon.com.bd"
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="unsafe-email-password")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_USER = "ittadystore38@gmail.com"
+# EMAIL_HOST_PASSWORD = "bogd opbf fils zebt"
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # -------------------------------------------------------------------
 # APPLICATIONS
