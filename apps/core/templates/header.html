@@ -4,7 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.">
+    <meta name="description" content="{% block meta_description %}The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.{% endblock meta_description %}">
+    <meta name="keywords" content="MD. Likhon Sorkar, Full Stack Developer, Python, Django, JavaScript, React, Web Developer, Portfolio">
+    <meta name="author" content="MD. Likhon Sorkar">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://likhon.com.bd/">
+    <meta property="og:title" content="{% block meta_title %}MD. Likhon Sorkar - Full Stack Developer{% endblock meta_title %}">
+    <meta property="og:description" content="{% block meta_og_description %}The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.{% endblock meta_og_description %}">
+    <meta property="og:image" content="{% static 'img/myimage.png' %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://likhon.com.bd/">
+    <meta property="twitter:title" content="{% block meta_twitter_title %}MD. Likhon Sorkar - Full Stack Developer{% endblock meta_twitter_title %}">
+    <meta property="twitter:description" content="{% block meta_twitter_description %}The portfolio of MD. Likhon Sorkar, a full-stack developer specializing in modern web technologies.{% endblock meta_twitter_description %}">
+    <meta property="twitter:image" content="{% static 'img/myimage.png' %}">
+    
     <title>{% block title %}MD. Likhon Sorkar - Full Stack Developer{% endblock title %}</title>
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">

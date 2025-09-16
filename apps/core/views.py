@@ -153,6 +153,12 @@ def logout_view(request):
 def career(request):
     return render(request, "career.html")
 
+def about(request):
+    return render(request, "about.html")
+
+def terms(request):
+    return render(request, "terms.html")
+
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
 

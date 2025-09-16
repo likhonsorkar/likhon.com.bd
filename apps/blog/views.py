@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.html import strip_tags
 
 
 def blog_list(request):
@@ -48,10 +49,14 @@ def blog_detail(request, slug):
     else:
         comment_form = CommentForm()
 
+    meta_description = strip_tags(post.content)[:160]
+
     return render(request, 'blog/article.html', {
         'post': post,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'meta_title': post.title,
+        'meta_description': meta_description,
     })
 
 

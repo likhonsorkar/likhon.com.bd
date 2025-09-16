@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.core.views import home, contact, signin, signup, logout_view, working, accessdenied, career, activate
+from apps.core.views import home, contact, signin, signup, logout_view, working, accessdenied, career, activate, about, terms
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -34,6 +34,8 @@ urlpatterns = [
     path('career/', career, name="career"),
     path('shop/', include('apps.shop.urls')),
     path('tools/', include('apps.tools.urls')),
+    path('about/', about, name="about"),
+    path('terms/', terms, name="terms"),
 ]
 
 handler404 = 'apps.core.views.custom_404'
