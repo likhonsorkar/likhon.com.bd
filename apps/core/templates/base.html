@@ -1,0 +1,14 @@
+{% include "header.html" %}
+    <main>
+        {% if messages %}
+        <div class="container mx-auto mt-4">
+            {% for message in messages %}
+                <div class="p-4 mb-2 rounded {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% block contents %}{% endblock contents %}
+    </main>
+{% include "footer.html" %}

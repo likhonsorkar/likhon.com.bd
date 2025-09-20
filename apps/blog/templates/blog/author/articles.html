@@ -1,0 +1,45 @@
+{% extends "blog/author/author.html" %}
+{% block contents %}
+        <main class="flex-1 p-10">
+            <header class="mb-10" data-aos="fade-down">
+                <h2 class="text-4xl font-bold text-purple-corallite">My Articles</h2>
+                <p class="text-lg mt-2">Manage your published and draft articles.</p>
+            </header>
+            <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-up">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="py-3">Title</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3">Date</th>
+                            <th class="py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr class="border-b">
+                            <td class="py-4 font-semibold">{{ post.title }}</td>
+                            <td class="py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Published</span></td>
+                            <td class="py-4">{{ post.created_at|date:"M d, Y" }}</td>
+                            <td class="py-4 text-center">
+                                <a href="{% url 'blog_detail' post.slug %}" target="_blank" class="text-green-500 hover:underline mr-4"><i class="fas fa-eye"></i> View</a>
+                                <a href="{% url 'author_edit_article' post.slug %}" class="text-soft-blue hover:underline mr-4"><i class="fas fa-edit"></i> Edit</a>
+                                <a href="{% url 'author_delete_article' post.slug %}" class="text-tigerlily hover:underline"><i class="fas fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="py-4 text-center">You have not written any articles yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+{% endblock contents %}

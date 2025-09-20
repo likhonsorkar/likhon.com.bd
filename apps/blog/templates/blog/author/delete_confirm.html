@@ -1,0 +1,13 @@
+{% include "blog/author/sidebar.html" %}
+<div class="flex-1 p-10">
+    <div class="bg-white shadow rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-6">Delete Post</h1>
+        <p>Are you sure you want to delete the post "{{ post.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">Delete</button>
+            <a href="{% url 'author_myarticle' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4">Cancel</a>
+        </form>
+    </div>
+</div>
+{% include "footer.html" %}

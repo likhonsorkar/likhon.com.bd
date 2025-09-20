@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% block contents %}
+<section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+        {% if preview %}
+        <!-- CV Preview -->
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12" data-aos="fade-up">
+            <div id="cvPreview" class="prose max-w-none">
+                <div class="flex justify-between items-start">
+                    <div class="w-3/4">
+                        <h1 class="text-3xl font-bold">{{ name }}</h1>
+                        {% if email %}<p>Email: {{ email }}</p>{% endif %}
+                        <p>Mobile: {{ mobileNumber }}</p>
+                    </div>
+                    <div class="w-1/4">
+                        {% if photo %}
+                        <img src="data:image/png;base64,{{ photo }}" class="w-full object-cover" alt="Photo" style="width: 40mm; height: 50mm;">
+                        {% endif %}
+                    </div>
+                </div>
+                <hr class="my-6">
+                <div>
+                    <h2 class="text-xl font-semibold">Personal Details</h2>
+                    <p><strong>Father's Name:</strong> {{ fatherName }}</p>
+                    <p><strong>Mother's Name:</strong> {{ motherName }}</p>
+                    <p><strong>Nationality:</strong> {{ nationality }}</p>
+                    <p><strong>Date of Birth:</strong> {{ dob }}</p>
+                    <p><strong>Religion:</strong> {{ religion }}</p>
+                    <p><strong>Marital Status:</strong> {{ maritalStatus }}</p>
+                    <p><strong>Gender:</strong> {{ gender }}</p>
+                    {% if blood_group %}<p><strong>Blood Group:</strong> {{ blood_group }}</p>{% endif %}
+                    {% if height %}<p><strong>Height:</strong> {{ height }}</p>{% endif %}
+                    {% if weight %}<p><strong>Weight:</strong> {{ weight }}</p>{% endif %}
+                </div>
+                {% if skills %}
+                <hr class="my-6">
+                <div>
+                    <h2 class="text-xl font-semibold">Skills</h2>
+                    <p>{{ skills }}</p>
+                </div>
+                {% endif %}
+                <hr class="my-6">
+                <div>
+                    <h2 class="text-xl font-semibold">Address</h2>
+                    <p><strong>Present Address:</strong> {{ presentAddress }}</p>
+                    <p><strong>Permanent Address:</strong> {{ permanentAddress }}</p>
+                </div>
+                <hr class="my-6">
+                <div>
+                    <h2 class="text-xl font-semibold">Education</h2>
+                    {% if education_type == 'table' %}
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Exam Name</th>
+                                <th class="text-left">Group/Institute</th>
+                                <th class="text-left">Passing Year</th>
+                                <th class="text-left">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for edu in educations %}
+                            <tr>
+                                <td>{{ edu.exam_name }}</td>
+                                <td>{{ edu.institute }}</td>
+                                <td>{{ edu.passing_year }}</td>
+                                <td>{{ edu.result }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <ul>{% for edu in educations %}<li>{{ edu }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <hr class="my-6">
+                <div>
+                    <h2 class="text-xl font-semibold">Experience</h2>
+                    {% if experience_type == 'table' %}
+                     <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Company Name</th>
+                                <th class="text-left">Position</th>
+                                <th class="text-left">Start Date</th>
+                                <th class="text-left">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exp in experiences %}
+                            <tr>
+                                <td>{{ exp.company_name }}</td>
+                                <td>{{ exp.position }}</td>
+                                <td>{{ exp.start_date }}</td>
+                                <td>{{ exp.end_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <ul>{% for exp in experiences %}<li>{{ exp }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <hr class="my-6">
+                <div class="text-right">
+                    {% if signature %}
+                    <img src="data:image/png;base64,{{ signature }}" class="h-16" alt="Signature">
+                    <p class="mt-2">Signature</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end space-x-4">
+                <button id="printBtn" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition">Print</button>
+                <button id="downloadBtn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-full transition">Download as PDF</button>
+            </div>
+        </div>
+        {% else %}
+        <!-- CV Form -->
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12" data-aos="fade-up">
+            <h1 class="text-4xl font-bold text-purple-corallite text-center mb-4">Curriculum Vitae Maker</h1>
+            <p class="text-center text-gray-600 mb-10">Fill in your details to generate your CV.</p>
+            <form id="cvForm" method="POST" action="{% url 'tools:cv_maker' %}" enctype="multipart/form-data" class="space-y-8">
+                {% csrf_token %}
+                <!-- Personal Details -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-purple-mountain-majesty mb-6 border-b-2 border-purple-mountain-majesty/20 pb-2">Personal Details</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-sm font-medium">Name:</label><input type="text" name="name" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Father's Name:</label><input type="text" name="fatherName" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Mother's Name:</label><input type="text" name="motherName" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Nationality:</label><input type="text" name="nationality" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Date of Birth:</label><input type="date" name="dob" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Religion:</label><input type="text" name="religion" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Marital Status:</label><select name="maritalStatus" class="w-full px-4 py-2 border rounded-lg bg-white"><option value="">Select...</option><option>Single</option><option>Married</option></select></div>
+                        <div><label class="block text-sm font-medium">Gender:</label><select name="gender" class="w-full px-4 py-2 border rounded-lg bg-white"><option value="">Select...</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                        <div><label class="block text-sm font-medium">Blood Group:</label><input type="text" name="blood_group" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Height:</label><input type="text" name="height" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div><label class="block text-sm font-medium">Weight:</label><input type="text" name="weight" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium">Skills:</label><textarea name="skills" rows="3" class="w-full px-4 py-2 border rounded-lg"></textarea></div>
+                        <div><label class="block text-sm font-medium">Mobile Number:</label><input type="text" name="mobileNumber" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium">Email:</label><input type="email" name="email" class="w-full px-4 py-2 border rounded-lg"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium">Photo:</label><input type="file" name="photo" accept="image/*" class="w-full"></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-medium">Signature:</label><input type="file" name="signature" accept="image/*" class="w-full"></div>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div>
+                    <h2 class="text-2xl font-semibold mb-4">Address</h2>
+                    <textarea name="presentAddress" rows="3" placeholder="Present Address" class="w-full mb-3 px-4 py-2 border rounded-lg"></textarea>
+                    <textarea name="permanentAddress" rows="3" placeholder="Permanent Address" class="w-full px-4 py-2 border rounded-lg"></textarea>
+                </div>
+
+                <!-- Education -->
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold">Education</h2>
+                        <div class="flex items-center space-x-4">
+                            <label><input type="radio" name="education_type" value="simple" checked> Simple</label>
+                            <label><input type="radio" name="education_type" value="table"> Table</label>
+                        </div>
+                    </div>
+                    <div id="educationSimpleContainer">
+                        <textarea name="education_simple" rows="4" placeholder="Your educational background..." class="w-full px-4 py-2 border rounded-lg"></textarea>
+                    </div>
+                    <div id="educationTableContainer" class="hidden space-y-4">
+                        <div class="grid grid-cols-4 gap-4 education-row">
+                            <input type="text" name="exam_name" placeholder="Exam Name" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="text" name="institute" placeholder="Group/Institute" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="text" name="passing_year" placeholder="Passing Year" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="text" name="result" placeholder="Result" class="w-full px-4 py-2 border rounded-lg">
+                        </div>
+                    </div>
+                    <button type="button" id="addEducationRow" class="hidden mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full transition">+</button>
+                </div>
+
+                <!-- Experience -->
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-semibold">Experience</h2>
+                         <div class="flex items-center space-x-4">
+                            <label><input type="radio" name="experience_type" value="simple" checked> Simple</label>
+                            <label><input type="radio" name="experience_type" value="table"> Table</label>
+                        </div>
+                    </div>
+                    <div id="experienceSimpleContainer">
+                        <textarea name="experience_simple" rows="4" placeholder="Your work experience..." class="w-full px-4 py-2 border rounded-lg"></textarea>
+                    </div>
+                    <div id="experienceTableContainer" class="hidden space-y-4">
+                        <div class="grid grid-cols-4 gap-4 experience-row">
+                            <input type="text" name="company_name" placeholder="Company Name" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="text" name="position" placeholder="Position" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="date" name="start_date" placeholder="Start Date" class="w-full px-4 py-2 border rounded-lg">
+                            <input type="date" name="end_date" placeholder="End Date" class="w-full px-4 py-2 border rounded-lg">
+                        </div>
+                    </div>
+                    <button type="button" id="addExperienceRow" class="hidden mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full transition">+</button>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-full text-lg transition">
+                    Make Your CV
+                </button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+@media print {
+    body * { visibility: hidden; }
+    #cvPreview, #cvPreview * { visibility: visible; }
+    #cvPreview { position: absolute; left: 0; top: 0; width: 100%; }
+}
+.hidden { display: none; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggles for Education and Experience
+    function setupToggle(type) {
+        const simpleContainer = document.getElementById(type + 'SimpleContainer');
+        const tableContainer = document.getElementById(type + 'TableContainer');
+        const addRowBtn = document.getElementById('add' + (type.charAt(0).toUpperCase() + type.slice(1)) + 'Row');
+        
+        document.querySelectorAll(`input[name="${type}_type"]`).forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'table') {
+                    simpleContainer.classList.add('hidden');
+                    tableContainer.classList.remove('hidden');
+                    addRowBtn.classList.remove('hidden');
+                } else {
+                    simpleContainer.classList.remove('hidden');
+                    tableContainer.classList.add('hidden');
+                    addRowBtn.classList.add('hidden');
+                }
+            });
+        });
+    }
+
+    setupToggle('education');
+    setupToggle('experience');
+
+    // Add Row functionality
+    function addRow(containerSelector, rowHtml) {
+        const container = document.querySelector(containerSelector);
+        const newRow = document.createElement('div');
+        newRow.innerHTML = rowHtml;
+        // To keep the grid layout, we need to add the classes to the new div
+        newRow.className = 'grid grid-cols-4 gap-4';
+        // We need to append the children of the new div to the container
+        while (newRow.firstChild) {
+            container.appendChild(newRow.firstChild);
+        }
+    }
+
+    document.getElementById('addEducationRow').addEventListener('click', function() {
+        const rowHtml = `
+            <input type="text" name="exam_name" placeholder="Exam Name" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" name="institute" placeholder="Group/Institute" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" name="passing_year" placeholder="Passing Year" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" name="result" placeholder="Result" class="w-full px-4 py-2 border rounded-lg">`;
+        document.getElementById('educationTableContainer').insertAdjacentHTML('beforeend', rowHtml);
+    });
+
+    document.getElementById('addExperienceRow').addEventListener('click', function() {
+        const rowHtml = `
+            <input type="text" name="company_name" placeholder="Company Name" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" name="position" placeholder="Position" class="w-full px-4 py-2 border rounded-lg">
+            <input type="date" name="start_date" placeholder="Start Date" class="w-full px-4 py-2 border rounded-lg">
+            <input type="date" name="end_date" placeholder="End Date" class="w-full px-4 py-2 border rounded-lg">`;
+        document.getElementById('experienceTableContainer').insertAdjacentHTML('beforeend', rowHtml);
+    });
+    
+    // Print and Download
+    if (document.getElementById('printBtn')) {
+        document.getElementById('printBtn').addEventListener('click', () => window.print());
+    }
+
+    if (document.getElementById('downloadBtn')) {
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const element = document.getElementById('cvPreview');
+            const opt = {
+                margin: 0.5,
+                filename: 'cv.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        });
+    }
+});
+</script>
+{% endblock contents %}
